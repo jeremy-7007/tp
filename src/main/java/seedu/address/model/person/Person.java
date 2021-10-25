@@ -23,6 +23,7 @@ import seedu.address.model.lesson.NoOverlapLessonList;
 import seedu.address.model.lesson.exceptions.CannotAssignException;
 import seedu.address.model.lesson.exceptions.OverlappingLessonsException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.TaskCompletion;
 
 /**
  * Represents a Person in the address book.
@@ -41,7 +42,7 @@ public class Person implements HasUniqueId, Attendee,
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-    private final Set<UniqueId> assignedTaskIds = new HashSet<>();
+    private final Set<TaskCompletion> assignedTaskIds = new HashSet<>();
     private final NoOverlapLessonList lessonsList;
     private final List<Exam> exams = new ArrayList<>();
     private final Set<UniqueId> assignedGroupIds = new HashSet<>();
@@ -50,7 +51,7 @@ public class Person implements HasUniqueId, Attendee,
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Set<UniqueId> assignedTaskIds, NoOverlapLessonList lessonsList,
+                  Set<TaskCompletion> assignedTaskIds, NoOverlapLessonList lessonsList,
                   List<Exam> exams, Set<UniqueId> assignedGroupIds) {
         this.id = UniqueId.generateId(this);
         requireAllNonNull(name, phone, email, address, tags, assignedTaskIds, id, lessonsList, exams, assignedGroupIds);
@@ -69,7 +70,7 @@ public class Person implements HasUniqueId, Attendee,
      * Every field must be present and not null.
      */
     public Person(UniqueId uniqueId, Name name, Phone phone, Email email, Address address, Set<Tag> tags,
-                  Set<UniqueId> assignedTaskIds, NoOverlapLessonList lessonsList, List<Exam> exams,
+                  Set<TaskCompletion> assignedTaskIds, NoOverlapLessonList lessonsList, List<Exam> exams,
                   Set<UniqueId> assignedGroupIds) {
         requireAllNonNull(name, phone, email, address, tags, assignedTaskIds, uniqueId, lessonsList, exams,
                 assignedGroupIds);
@@ -135,7 +136,7 @@ public class Person implements HasUniqueId, Attendee,
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<UniqueId> getAssignedTaskIds() {
+    public Set<TaskCompletion> getAssignedTaskIds() {
         return Collections.unmodifiableSet(assignedTaskIds);
     }
 
@@ -267,7 +268,7 @@ public class Person implements HasUniqueId, Attendee,
      * @param newAssignedTaskIds the new assigned task id list
      * @return new Person instance with the updated assigned task id list
      */
-    public Person updateAssignedTaskIds(Set<UniqueId> newAssignedTaskIds) {
+    public Person updateAssignedTaskIds(Set<TaskCompletion> newAssignedTaskIds) {
         requireNonNull(newAssignedTaskIds);
         return new Person(id, name, phone, email, address, tags, newAssignedTaskIds,
                 lessonsList, exams, assignedGroupIds);

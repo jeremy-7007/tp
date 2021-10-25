@@ -27,6 +27,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.TaskCompletion;
 
 /**
  * Parses input arguments and creates a new AddPersonCommand object
@@ -52,7 +53,7 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Set<UniqueId> assignedTaskIds = new HashSet<>(); // add command does not allow assigning tasks straight away
+        Set<TaskCompletion> assignedTaskIds = new HashSet<>(); // add command does not allow assigning tasks straight away
         NoOverlapLessonList noLessons = new NoOverlapLessonList();
         List<Exam> noExams = new ArrayList<>();
         Set<UniqueId> noGroups = new HashSet<>();

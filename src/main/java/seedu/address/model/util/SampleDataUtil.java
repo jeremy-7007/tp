@@ -17,6 +17,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.TaskCompletion;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -69,12 +70,12 @@ public class SampleDataUtil {
     }
 
     /**
-     * Returns a unique id set containing the list of strings given.
+     * Returns a TaskCompletion set containing the assignments of the given task id strings
+     * to the given agent id.
      */
-    public static Set<UniqueId> getUniqueIdSet(String... strings) {
+    public static Set<TaskCompletion> getTaskCompletionSet(UniqueId agentId, String... strings) {
         return Arrays.stream(strings)
-                .map(UniqueId::generateId)
+                .map(string -> new TaskCompletion(agentId, UniqueId.generateId(string)))
                 .collect(Collectors.toSet());
     }
-
 }

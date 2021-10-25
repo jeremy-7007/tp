@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.id.UniqueId;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskCompletion;
 
 public class AssignTaskToPersonCommand extends Command {
 
@@ -64,14 +65,16 @@ public class AssignTaskToPersonCommand extends Command {
 
         Person personToEdit = lastShownPersonList.get(personIndex.getZeroBased());
         Task taskToAssign = lastShownTaskList.get(taskIndex.getZeroBased());
-        Set<UniqueId> previousAssignedTaskSet = personToEdit.getAssignedTaskIds();
+        Set<TaskCompletion> previousAssignedTaskSet = personToEdit.getAssignedTaskIds();
+        UniqueId personId = personToEdit.getId();
         UniqueId taskId = taskToAssign.getId();
+        TaskCompletion newAssignment = new TaskCompletion(personId, taskId);
 
-        if (previousAssignedTaskSet.contains(taskId)) {
+        if (previousAssignedTaskSet.contains(newAssignment)) {
             throw new CommandException(OVERLAPPING_TASK);
         }
-        Set<UniqueId> newAssignedTaskSet = new HashSet<>(previousAssignedTaskSet);
-        newAssignedTaskSet.add(taskId);
+        Set<TaskCompletion> newAssignedTaskSet = new HashSet<>(previousAssignedTaskSet);
+        newAssignedTaskSet.add(newAssignment);
         Person newPerson = personToEdit.updateAssignedTaskIds(newAssignedTaskSet);
 
         if (!personToEdit.isSamePerson(newPerson) && model.hasPerson(newPerson)) {

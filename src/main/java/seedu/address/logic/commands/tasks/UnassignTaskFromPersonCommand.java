@@ -17,6 +17,7 @@ import seedu.address.model.Model;
 import seedu.address.model.id.UniqueId;
 import seedu.address.model.person.Person;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskCompletion;
 
 public class UnassignTaskFromPersonCommand extends Command {
 
@@ -63,14 +64,16 @@ public class UnassignTaskFromPersonCommand extends Command {
 
         Person personToEdit = lastShownPersonList.get(personIndex.getZeroBased());
         Task taskToUnassign = lastShownTaskList.get(taskIndex.getZeroBased());
-        Set<UniqueId> previousAssignedTaskSet = personToEdit.getAssignedTaskIds();
+        Set<TaskCompletion> previousAssignedTaskSet = personToEdit.getAssignedTaskIds();
+        UniqueId personId = personToEdit.getId();
         UniqueId taskId = taskToUnassign.getId();
+        TaskCompletion assignmentToRemove = new TaskCompletion(personId, taskId);
 
-        if (!previousAssignedTaskSet.contains(taskId)) {
+        if (!previousAssignedTaskSet.contains(assignmentToRemove)) {
             throw new CommandException(MISSING_TASK);
         }
-        Set<UniqueId> newAssignedTaskSet = new HashSet<>(previousAssignedTaskSet);
-        newAssignedTaskSet.remove(taskId);
+        Set<TaskCompletion> newAssignedTaskSet = new HashSet<>(previousAssignedTaskSet);
+        newAssignedTaskSet.remove(assignmentToRemove);
         Person newPerson = personToEdit.updateAssignedTaskIds(newAssignedTaskSet);
 
         if (!personToEdit.isSamePerson(newPerson) && model.hasPerson(newPerson)) {

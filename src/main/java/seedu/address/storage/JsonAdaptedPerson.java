@@ -20,6 +20,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.TaskCompletion;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -34,7 +35,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
-    private final List<JsonAdaptedUniqueId> assignedTaskIds = new ArrayList<>();
+    private final List<JsonAdaptedTaskCompletion> assignedTaskIds = new ArrayList<>();
     private final List<JsonAdaptedLesson> lessonsList = new ArrayList<>();
     private final List<JsonAdaptedExam> exams = new ArrayList<>();
 
@@ -45,7 +46,7 @@ class JsonAdaptedPerson {
     public JsonAdaptedPerson(@JsonProperty("uniqueId") String uniqueId, @JsonProperty("name") String name,
             @JsonProperty("phone") String phone, @JsonProperty("email") String email,
             @JsonProperty("address") String address, @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-            @JsonProperty("assignedTaskIds") List<JsonAdaptedUniqueId> assignedTaskIds,
+            @JsonProperty("assignedTaskIds") List<JsonAdaptedTaskCompletion> assignedTaskIds,
             @JsonProperty("lessonsList") List<JsonAdaptedLesson> lessonsList,
             @JsonProperty("exams") List<JsonAdaptedExam> exams) {
         this.uniqueId = uniqueId;
@@ -80,7 +81,7 @@ class JsonAdaptedPerson {
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
         assignedTaskIds.addAll(source.getAssignedTaskIds().stream()
-                .map(JsonAdaptedUniqueId::new)
+                .map(JsonAdaptedTaskCompletion::new)
                 .collect(Collectors.toList()));
         lessonsList.addAll(source.getLessonsList().getLessons().stream()
                 .map(JsonAdaptedLesson::new)
@@ -100,9 +101,9 @@ class JsonAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        final List<UniqueId> personAssignedTaskIds = new ArrayList<>();
-        for (JsonAdaptedUniqueId id : assignedTaskIds) {
-            personAssignedTaskIds.add(id.toModelType());
+        final List<TaskCompletion> personAssignedTaskIds = new ArrayList<>();
+        for (JsonAdaptedTaskCompletion taskCompletion : assignedTaskIds) {
+            personAssignedTaskIds.add(taskCompletion.toModelType());
         }
 
         if (name == null) {
@@ -138,7 +139,7 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        final Set<UniqueId> modelAssignedTaskIds = new HashSet<>(personAssignedTaskIds);
+        final Set<TaskCompletion> modelAssignedTaskIds = new HashSet<>(personAssignedTaskIds);
 
         final List<Lesson> modelLessonsList = new ArrayList<>();
         for (JsonAdaptedLesson l : lessonsList) {

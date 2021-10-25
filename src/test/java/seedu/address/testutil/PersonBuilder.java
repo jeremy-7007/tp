@@ -15,6 +15,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.TaskCompletion;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -33,7 +34,7 @@ public class PersonBuilder {
     private Email email;
     private Address address;
     private Set<Tag> tags;
-    private Set<UniqueId> assignedTaskIds;
+    private Set<TaskCompletion> assignedTaskIds;
     private NoOverlapLessonList lessonsList;
     private List<Exam> exams;
     private Set<UniqueId> assignedGroupIds;
@@ -98,7 +99,7 @@ public class PersonBuilder {
      * Parses the {@code ids} into a {@code Set<UniqueId>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withAssignedTaskIds(String ... assignedTaskIds) {
-        this.assignedTaskIds = SampleDataUtil.getUniqueIdSet(assignedTaskIds);
+        this.assignedTaskIds = SampleDataUtil.getTaskCompletionSet(id, assignedTaskIds);
         return this;
     }
 

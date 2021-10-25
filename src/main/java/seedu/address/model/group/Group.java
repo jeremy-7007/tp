@@ -20,6 +20,7 @@ import seedu.address.model.lesson.LessonAssignable;
 import seedu.address.model.lesson.NoOverlapLessonList;
 import seedu.address.model.lesson.exceptions.CannotAssignException;
 import seedu.address.model.lesson.exceptions.OverlappingLessonsException;
+import seedu.address.model.task.TaskCompletion;
 
 /**
  * Represents a Group in the address book.
@@ -30,11 +31,11 @@ public class Group implements HasUniqueId, TaskAssignable, LessonAssignable {
     // Identity fields
     private final GroupName name;
 
-    // The id of the task
+    // The id of the group
     private final UniqueId id;
 
     // The id of tasks assigned to the group
-    private final Set<UniqueId> assignedTaskIds = new HashSet<>();
+    private final Set<TaskCompletion> assignedTaskIds = new HashSet<>();
 
     // the id of persons assigned to this group.
     private final Set<UniqueId> assignedPersonIds = new HashSet<>();
@@ -66,7 +67,7 @@ public class Group implements HasUniqueId, TaskAssignable, LessonAssignable {
     /**
      * Every field must be present and not null.
      */
-    public Group(GroupName name, UniqueId id, Set<UniqueId> assignedTaskIds, Set<UniqueId> assignedPersonIds,
+    public Group(GroupName name, UniqueId id, Set<TaskCompletion> assignedTaskIds, Set<UniqueId> assignedPersonIds,
                  NoOverlapLessonList lessonList) {
         requireAllNonNull(name, id, assignedTaskIds, assignedPersonIds);
         this.id = id;
@@ -147,7 +148,7 @@ public class Group implements HasUniqueId, TaskAssignable, LessonAssignable {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    public Set<UniqueId> getAssignedTaskIds() {
+    public Set<TaskCompletion> getAssignedTaskIds() {
         return Collections.unmodifiableSet(assignedTaskIds);
     }
 
@@ -157,7 +158,7 @@ public class Group implements HasUniqueId, TaskAssignable, LessonAssignable {
      * @param newAssignedTaskIds the new assigned task id list
      * @return new Person instance with the updated assigned task id list
      */
-    public Group updateAssignedTaskIds(Set<UniqueId> newAssignedTaskIds) {
+    public Group updateAssignedTaskIds(Set<TaskCompletion> newAssignedTaskIds) {
         requireNonNull(newAssignedTaskIds);
         return new Group(name, id, newAssignedTaskIds, assignedPersonIds, lessonList);
     }
