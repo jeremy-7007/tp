@@ -11,12 +11,27 @@ public class TaskCompletion {
     private final UniqueId taskId;
     private final boolean isDone;
 
+    /**
+     * Initialises a TaskCompletion object with the given {@code agentId} and {@code taskId}
+     * Object is marked as not done by default
+     *
+     * @param agentId UniqueId of the agent doing the task
+     * @param taskId UniqueId of the task assigned to the agent
+     */
     public TaskCompletion(UniqueId agentId, UniqueId taskId) {
         this.agentId = agentId;
         this.taskId = taskId;
         this.isDone = false;
     }
 
+    /**
+     * Initialises a TaskCompletion object with the given {@code agentId}, {@code taskId} and done status
+     * Object's done status is given
+     *
+     * @param agentId UniqueId of the agent doing the task
+     * @param taskId UniqueId of the task assigned to the agent
+     * @param isDone whether the new TaskCompletion should be marked as done
+     */
     public TaskCompletion(UniqueId agentId, UniqueId taskId, boolean isDone) {
         this.agentId = agentId;
         this.taskId = taskId;

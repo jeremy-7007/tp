@@ -1,10 +1,10 @@
 package seedu.address.storage;
 
-import seedu.address.model.id.UniqueId;
-import seedu.address.model.task.TaskCompletion;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+
+import seedu.address.model.id.UniqueId;
+import seedu.address.model.task.TaskCompletion;
 
 /**
  * Jackson-friendly version of {@link TaskCompletion}.
